@@ -1,15 +1,15 @@
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
 from .models import Shipment
 from .serializers import ShipmentSerializer
 from rest_framework import generics
 
 
 def index(request):
-    return HttpResponse('<h1>Weclome to Shipment</h1>')
+    deliveries = Shipment.objects.all()
+    return render(request, 'base.html', context={'Shipments': deliveries})
 
 
-class ShipmentList(generics.ListCreateAPIView):
+class ShipmentList(generics.ListAPIView):
     serializer_class = ShipmentSerializer
     queryset = Shipment.objects.values('pub_order_id', 'delivery_address')
 

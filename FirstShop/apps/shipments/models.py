@@ -12,7 +12,7 @@ DateReceived = '02-12-2019 12:00:00'
 
 
 class Shipment(models.Model):
-    pub_order_id = models.CharField(max_length=20)
+    pub_order_id = models.CharField(max_length=100)
     # FIXME: enable foreign key after order impl
     # order = models.ForeignKey(
     #    'Order',

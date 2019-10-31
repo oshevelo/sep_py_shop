@@ -21,5 +21,6 @@ app_name = 'shipments'
 
 urlpatterns = [
     path('', views.ShipmentList.as_view(), name='shipment_list'),
-    path('<str:pub_order_id>', views.ShipmentDetails.as_view(), name='shipment_details'),
+    path('index/', views.index, name='index'),
+    path('s/<str:pub_order_id>', views.ShipmentDetails.as_view(), name='shipment_details'),
 ]
