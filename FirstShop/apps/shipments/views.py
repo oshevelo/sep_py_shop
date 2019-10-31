@@ -21,9 +21,3 @@ class ShipmentDetails(generics.RetrieveUpdateDestroyAPIView):
     def get_object(self):
         obj = get_object_or_404(Shipment, pub_order_id=self.kwargs.get('pub_order_id'))
         return obj
-
-
-
-
-
-
