@@ -22,6 +22,8 @@ class OTCBase(models.Model):
 class RegisterOTC(OTCBase):
     new_user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def apply(self):
+        raise NotImplemented
 
 class ResetPasswordOTC(OTCBase):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
