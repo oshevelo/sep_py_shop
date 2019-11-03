@@ -1,10 +1,7 @@
-
-
 from django.db import models
 from django.contrib.auth.models import User
 
 # from apps.product.models. import Product
-
 # from apps.orders.models import Payment
 
 from django.utils import timezone
@@ -32,7 +29,8 @@ class Order(models.Model):
     delivery = models.CharField(max_length=50, null=True, blank=False)
     payment = models.CharField(max_length=100, choices=PAYMENT_CHOICES, null=True, blank=False)
     status = models.CharField(max_length=100, choices=ORDERS_STATUS_CHOICES, null=True, blank=False)
-    date = models.DateTimeField(null=True, blank=True)#####????
+    date = models.DateTimeField(null=True, blank=True)
+
 
     def __str__(self):
         return 'user = {}, status = {}, id = {},'.format(self.user, self.status, self.pk,)
@@ -47,6 +45,5 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return '{}'.format(self.order)
-
 
 
