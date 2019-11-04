@@ -7,6 +7,7 @@ from rest_framework import generics
 from apps.orders.serializers import OrderSerializer
 
 
+
 def index(request):
     return HttpResponse("Hello, world")
 
@@ -19,6 +20,7 @@ class Order_List(generics.ListAPIView): # ми просто виведимо с�
 class Order_Detail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+
 
     def get_object(self):
         obj = get_object_or_404(Order, pk=self.kwargs.get('public_order_id'))

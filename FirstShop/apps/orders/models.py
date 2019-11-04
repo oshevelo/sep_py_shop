@@ -5,6 +5,9 @@ from django.contrib.auth.models import User
 # from apps.orders.models import Payment
 
 
+from django.utils import timezone
+
+
 ORDERS_STATUS_CHOICES = [
     ('Accepted_for_processing', 'Accepted for processing'),
     ('Processing', 'Processing'),
@@ -21,6 +24,7 @@ PAYMENT_CHOICES =[
 
 
 class Order(models.Model):
+
     public_order = models.CharField(max_length=100, null=True, blank=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     phone = models.CharField(max_length=13, null=True, blank=False)
@@ -30,12 +34,12 @@ class Order(models.Model):
     status = models.CharField(max_length=100, choices=ORDERS_STATUS_CHOICES, null=True, blank=False)
     date = models.DateTimeField(null=True, blank=True)
 
+
     def __str__(self):
         return 'user = {}, status = {}, id = {},'.format(self.user, self.status, self.pk,)
 
     class Meta:
         app_label = 'orders'
-
 
 class OrderItem(models.Model):
 
@@ -50,3 +54,4 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return '{}'.format(self.order)
+
