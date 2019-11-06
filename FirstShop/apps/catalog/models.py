@@ -38,7 +38,6 @@ class Book(models.Model):
     title = models.CharField(max_length=200)
 
     # Foreign Key used because book can only have one author, but authors can have multiple books
-    # Author as a string rather than object because it hasn't been declared yet in the file
     author = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True)
 
     genre = models.ManyToManyField(Genre, help_text='Select a genre for this book')
@@ -47,5 +46,4 @@ class Book(models.Model):
         """String for representing the Model object."""
         return self.title
 
-    # language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True)
     language = models.ManyToManyField(Language, help_text='Select language/languages for this book')
