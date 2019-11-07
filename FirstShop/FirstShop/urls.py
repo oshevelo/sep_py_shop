@@ -18,6 +18,7 @@ from django.urls import path, include
 
 urlpatterns = [
     # path('', views.home, name='home'),
+    path(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
     path('orders/', include('apps.orders.urls'), name='orders'),
     path('shipments/', include('apps.shipments.urls'), name='shipment'),
     path('admin/', admin.site.urls),
