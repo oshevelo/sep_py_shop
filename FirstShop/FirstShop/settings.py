@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # 'apps.recommendations',
     'apps.shipments',
     # 'apps.stats',
+    'apps.catalog',
     'rest_framework',
 
 ]
