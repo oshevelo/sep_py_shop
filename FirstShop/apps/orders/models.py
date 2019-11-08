@@ -25,7 +25,21 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     phone = models.CharField(max_length=13, null=True, blank=False)
     email = models.EmailField(null=True, blank=False)
-    delivery = models.CharField(max_length=50, null=True, blank=False)
+    nova_poshta = 'NP'
+    justin = 'JT'
+    pickup = 'CP'
+
+    DELIVERY = [
+        (nova_poshta, 'Nova Poshta'),
+        (justin, 'Justin'),
+        (pickup, 'Pickup')
+    ]
+
+    delivery = models.CharField(
+        max_length=2,
+        choices=DELIVERY,
+        default=pickup
+    )
     payment = models.CharField(max_length=100, choices=PAYMENT_CHOICES, null=True, blank=False)
     status = models.CharField(max_length=100, choices=ORDERS_STATUS_CHOICES, null=True, blank=False)
     date = models.DateTimeField(null=True, blank=True)

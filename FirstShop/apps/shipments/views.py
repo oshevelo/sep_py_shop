@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.models import User
-from .models import BaseShipment, Order, OrderItem
+from apps.orders.models import Order, OrderItem
+from .models import BaseShipment
 from .serializers import ShipmentSerializer
 from rest_framework import generics
 import requests
@@ -22,7 +23,7 @@ def index(request):
 
 class ShipmentList(generics.ListAPIView):
     serializer_class = ShipmentSerializer
-    queryset = BaseShipment.objects.values('pub_order_id', 'delivery_address')
+    queryset = BaseShipment.objects.values('public_order', 'delivery_address')
 
 
 class ShipmentDetails(generics.RetrieveUpdateDestroyAPIView):
@@ -30,7 +31,7 @@ class ShipmentDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = BaseShipment.objects.all()
 
     def get_object(self):
-        obj = get_object_or_404(BaseShipment, pub_order_id=self.kwargs.get('pub_order_id'))
+        obj = get_object_or_404(BaseShipment, public_order=self.kwargs.get('public_order'))
 
 
 def create_invoice(request):

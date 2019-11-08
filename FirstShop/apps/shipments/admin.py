@@ -9,8 +9,8 @@ class ShipmentInLine(admin.TabularInline):
 
 class ShipmentAdmin(admin.ModelAdmin):
     list_display = (
-        'pub_order_id',
-        'shipment_method',
+        'public_order',
+        'delivery_service',
         # 'payment_method',
         # FIXME: add if it needed
         'delivery_address',

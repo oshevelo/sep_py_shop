@@ -21,5 +21,5 @@ class Order_Detail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = OrderSerializer
 
     def get_object(self):
-        obj = get_object_or_404(Order, pk=self.kwargs.get('public_order_id'))
+        obj = get_object_or_404(Order, pk=self.kwargs.get('public_order'))
         return obj
