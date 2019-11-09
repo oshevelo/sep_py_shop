@@ -5,12 +5,12 @@ from .models import Order, OrderItem
 
 class OrderAdmin(admin.ModelAdmin):
     list_display = (
+        'id',
         'public_id',
         'user',
-        'delivery',
         'payment',
         'status',
-        'date'
+
     )
 
 class OrderItemAdmin(admin.ModelAdmin):
