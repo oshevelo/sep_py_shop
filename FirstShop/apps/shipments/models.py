@@ -28,7 +28,14 @@ class DeliveryStatus:
     DeliveryBack = 106
 
 
+class DeliveryProvider(object):
+    novaposhta = 'Nova Poshta'
+    justin = 'Justin'
+    pickup = 'Pickup'
+
+
 class BaseShipment(models.Model):
+
     public_order = models.OneToOneField(
         Order,
         primary_key=True,
@@ -36,10 +43,16 @@ class BaseShipment(models.Model):
         related_name='order'
     )
 
-    delivery_service = models.ForeignKey(
-        Order,
-        on_delete=models.CASCADE,
-        related_name='delivery_service'
+    DELIVERY = [
+        (DeliveryProvider.novaposhta, 'Nova Poshta'),
+        (DeliveryProvider.justin, 'Justin'),
+        (DeliveryProvider.pickup, 'Pickup')
+    ]
+
+    shipment_provider = models.CharField(
+        max_length=20,
+        choices=DELIVERY,
+        default=DeliveryProvider.pickup
     )
 
     delivery_address = models.CharField(
@@ -94,13 +107,8 @@ class BaseShipment(models.Model):
     invoice_id = models.CharField(
         max_length=200,
         null=True,
-        default=None
-    )
-
-    phone_number = models.ForeignKey(
-        Order,
-        on_delete=models.CASCADE,
-        related_name='recipient_phone'
+        default=None,
+        verbose_name='DocumentNumber'
     )
 
     class Meta:
@@ -108,4 +116,3 @@ class BaseShipment(models.Model):
 
     def __str__(self):
         return f'order = {self.invoice_id}, status = {self.shipment_status}'
-
