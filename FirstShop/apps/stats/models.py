@@ -19,7 +19,7 @@ class Product(models.Model):
 
 class ProductStatistics(models.Model):
 	class Meta:
-    db_table = "productStats"
+    		db_table = "productStats"
      
 	product = models.ForeignKey(Product, on_delete = models.PROTECT)                  
 	date = models.DateField('Date', default=timezone.now)
