@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.mailer',
+    'apps.catalog'
     'apps.orders',
 ]
 
@@ -78,13 +79,13 @@ WSGI_APPLICATION = 'FirstShop.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "shop_int",
-        "USER": "my_first_site",
-        "PASSWORD": "uKiegho2",
-        "HOST": "localhost",
-        "PORT": "",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'firstshop',
+        'USER': 'django',
+        'PASSWORD': 'django',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
