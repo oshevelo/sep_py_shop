@@ -81,11 +81,11 @@ WSGI_APPLICATION = 'FirstShop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'firstshop',
-        'USER': 'django',
-        'PASSWORD': 'django',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
     }
 }
 
