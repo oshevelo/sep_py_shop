@@ -6,9 +6,9 @@ import datetime
 
 PROVIDER_CHOICES = [
     ('Rozetka', 'Rozetka'),
-    ('Буква', 'Буква'),
+    ('Bookva', 'Bookva'),
     ('Globalbook', 'Globalbook'),
-    ('Букля', 'Букля'),
+    ('Booklya', 'Booklya'),
     ('Yakaboo', 'Yakaboo')
 ]
 
@@ -17,6 +17,8 @@ class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     public_id = models.CharField(max_length=200, blank=False)
     date = models.DateTimeField(null=True, blank=True)
+    cart_create = models.DateTimeField(null=True, blank=True)
+    cart_update = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return 'user = {}, public_id = {}'.format(self.user, self.public_id, self.pk)
@@ -29,7 +31,8 @@ class CartItem(models.Model):
     discount = models.PositiveIntegerField(default=None, null=True, blank=True)
     #recs = models.ForeignKey(Recommendation, on_delete=models.CASCADE, null=True, blank=True)
     amount = models.PositiveIntegerField(default=1, null=True, blank=False)
-    provider = models.CharField(max_length=100, choices=PROVIDER_CHOICES, null=True, blank=False)
+    cart_item_create = models.DateTimeField(null=True, blank=True)
+    cart_item_update = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return '{}'.format(self.cart_id)
