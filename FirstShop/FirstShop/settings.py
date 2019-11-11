@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.carts',
+    'apps.mailer',
+    'apps.catalog',
+    'apps.orders',
 ]
 
 MIDDLEWARE = [
@@ -78,12 +81,12 @@ WSGI_APPLICATION = 'FirstShop.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': '',
         'USER': '',
         'PASSWORD': '',
         'HOST': '',
-        'PORT': ''
+        'PORT': '',
     }
 }
 
