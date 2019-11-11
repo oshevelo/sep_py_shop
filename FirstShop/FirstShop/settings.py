@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jet',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -78,10 +79,10 @@ WSGI_APPLICATION = 'FirstShop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'carts',
-        'USER': 'myfirstshop',
-        'PASSWORD': 'die7Ien1',
-        'HOST': 'localhost',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
         'PORT': ''
     }
 }
@@ -122,6 +123,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-
+Z = 1
 STATIC_URL = '/static/'
-
+from .local import *
+print(Z)
