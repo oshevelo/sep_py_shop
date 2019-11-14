@@ -5,16 +5,22 @@ class Category(models.Model):
     """
     Model to create top and sub categories
     """
-    category_name = models.CharField(max_length=25)
+    category_name = models.CharField(max_length=25,
+                                     help_text='Enter a book category (e.g. Classic)')
     # null true mean there can be main category that do not have any parent category
     # category_object.sub_category.all() shows all related child objects
     top_category = models.ForeignKey('self',
                                      null=True,
                                      related_name='sub_category',
-                                     on_delete=models.CASCADE)
+                                     on_delete=models.CASCADE,
+                                     help_text='Enter a book top category (e.g. Language, Genre)')
+
+    INDX = models.IntegerField(default=0,
+                               help_text='Specify index number for sorting order')
 
     class Meta:
-        ordering = ['category_name']
+        # Sorting index from smaller to higher e.g. 1 top 2 second etc
+        ordering = ['INDX']
         verbose_name_plural = "Categories"
 
     def __str__(self):

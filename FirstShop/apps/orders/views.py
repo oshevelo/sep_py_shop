@@ -15,7 +15,7 @@ def index(request):
 
 
 
-class Order_List(generics.ListAPIView): # ми просто виведимо список  всіх питань
+class Order_List_Create(generics.ListCreateAPIView): # ми просто виведимо список  всіх питань
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 

@@ -1,44 +1,14 @@
 from django.db import models
 
 # from FirstShop.apps.orders.models import Payment
-
 from apps.orders.models import Order
-
-
-class DeliveryStatus:
-    WaitForSender = 1
-    DeletedForm = 2
-    NumberNotFound = 3
-    DeliveryInOblast = 4
-    DeliveryInLocal = 41
-    DeliveryOnTheWay = 5
-    DeliveryInTheCity = 6
-    DeliveryOnTheBranch_1 = 7
-    DeliveryOnTheBranch_2 = 8
-    DeliveryReceived = 9
-    DeliveryReceivedCashback = 10
-    DeliveryReceivedCashbackGet = 11
-    DeliveryReceivedCheck = 14
-    OnTheWayToCustomer = 101
-    RejectBySender_1 = 102
-    RejectBySender_2 = 103
-    RejectBySender_3 = 108
-    DeliveryAddressChange = 104
-    DeliveryHoldEnd = 105
-    DeliveryBack = 106
-
-
-class DeliveryProvider(object):
-    novaposhta = 'Nova Poshta'
-    justin = 'Justin'
-    pickup = 'Pickup'
+from FirstShop.variables import DeliveryStatus, DeliveryProvider
 
 
 class BaseShipment(models.Model):
 
     public_order = models.OneToOneField(
         Order,
-        primary_key=True,
         on_delete=models.CASCADE,
         related_name='order'
     )
@@ -67,11 +37,11 @@ class BaseShipment(models.Model):
     )
     shipment_status_date = models.DateTimeField(
         'status_date',
-        auto_now=True
+        auto_created=True
     )
     status_change_date = models.DateTimeField(
-        'status_date_change',
-        auto_created=True
+        'status_change_date',
+        auto_now=True
     )
 
     DELIVERY_STATUS = [
@@ -107,12 +77,13 @@ class BaseShipment(models.Model):
     invoice_id = models.CharField(
         max_length=200,
         null=True,
-        default=None,
-        verbose_name='DocumentNumber'
+        default=None
     )
 
     class Meta:
         app_label = 'shipments'
+        unique_together = ['public_order', 'delivery_address']
+        ordering = ['public_order']
 
     def __str__(self):
-        return f'order = {self.invoice_id}, status = {self.shipment_status}'
+        return 'order {}'.format(self.invoice_id)
