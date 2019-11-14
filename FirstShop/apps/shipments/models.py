@@ -10,7 +10,9 @@ class BaseShipment(models.Model):
     public_order = models.OneToOneField(
         Order,
         on_delete=models.CASCADE,
-        related_name='order'
+        related_name='my_shipment',
+        blank=True,
+        null=True
     )
 
     DELIVERY = [
@@ -37,7 +39,7 @@ class BaseShipment(models.Model):
     )
     shipment_status_date = models.DateTimeField(
         'status_date',
-        auto_created=True
+        auto_now_add=True
     )
     status_change_date = models.DateTimeField(
         'status_change_date',
