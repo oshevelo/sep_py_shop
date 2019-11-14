@@ -11,8 +11,10 @@ class Order(models.Model):
     public_id = models.CharField(max_length=100, null=True, blank=False)
     phone = models.CharField(max_length=13, null=True, blank=False)
     email = models.EmailField(null=True, blank=False)
-    payment = models.CharField(max_length=100, choices=PaymentOrder.PAYMENT_CHOICES, null=True, blank=False)
-    status = models.CharField(max_length=100, choices=StatusOrder.STATUS_CHOICES, null=True, blank=False)
+    payment = models.CharField(max_length=100, choices=PaymentOrder.PAYMENT_CHOICES,
+                               default=PaymentOrder.CREDIT, null=True, blank=False)
+    status = models.CharField(max_length=100, choices=StatusOrder.STATUS_CHOICES,
+                              defaul=StatusOrder.ACCEPTED_FOR_PROCESSING, null=True, blank=False)
     date_of_order = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     date_of_paid = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
