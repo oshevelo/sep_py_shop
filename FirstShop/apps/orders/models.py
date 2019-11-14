@@ -14,7 +14,7 @@ class Order(models.Model):
     payment = models.CharField(max_length=100, choices=PaymentOrder.PAYMENT_CHOICES,
                                default=PaymentOrder.CREDIT, null=True, blank=False)
     status = models.CharField(max_length=100, choices=StatusOrder.STATUS_CHOICES,
-                              defaul=StatusOrder.ACCEPTED_FOR_PROCESSING, null=True, blank=False)
+                              default=StatusOrder.ACCEPTED_FOR_PROCESSING, null=True, blank=False)
     date_of_order = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     date_of_paid = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
