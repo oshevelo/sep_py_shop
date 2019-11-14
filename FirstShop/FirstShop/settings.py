@@ -39,9 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'FirstShop',
     'apps.mailer',
     'apps.catalog',
     'apps.orders',
+    'apps.shipments',
 ]
 
 MIDDLEWARE = [
@@ -125,7 +127,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-Z = 1
 STATIC_URL = '/static/'
+
 from .local import *
-print(Z)
