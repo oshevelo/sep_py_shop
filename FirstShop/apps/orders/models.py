@@ -1,26 +1,41 @@
+
+
 from django.db import models
 from django.contrib.auth.models import User
 
 # from apps.product.models. import Product
+
 # from apps.orders.models import Payment
 
-from FirstShop.defs import PaymentOrder, StatusOrder
+from django.utils import timezone
+
+ORDERS_STATUS_CHOICES = [
+    ('Accepted_for_processing', 'Accepted for processing'),
+    ('Processing', 'Processing'),
+    ('Paid', 'Paid'),
+]
+
+PAYMENT_CHOICES =[
+    ('Cash', 'Cash'),
+    ('Credit', 'Credit'),
+    ('PrivarPay', 'PrivarPay'),
+    ('Pay_of_parts', 'Pay of parts'),
+    ('Pay_of_card', 'Pay of card'),
+]
+
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     public_id = models.CharField(max_length=100, null=True, blank=False)
     phone = models.CharField(max_length=13, null=True, blank=False)
     email = models.EmailField(null=True, blank=False)
-    payment = models.CharField(max_length=100, choices=PaymentOrder.PAYMENT_CHOICES, null=True, blank=False)
-    status = models.CharField(max_length=100, choices=StatusOrder.STATUS_CHOICES, null=True, blank=False)
-    date_of_order = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    date_of_paid = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-
+    delivery = models.CharField(max_length=50, null=True, blank=False)
+    payment = models.CharField(max_length=100, choices=PAYMENT_CHOICES, null=True, blank=False)
+    status = models.CharField(max_length=100, choices=ORDERS_STATUS_CHOICES, null=True, blank=False)
+    date = models.DateTimeField(null=True, blank=True)#####????
 
     def __str__(self):
-        return 'user = {}, id = {},'.format(self.user, self.pk)
-
-
+        return 'user = {}, status = {}, id = {},'.format(self.user, self.status, self.pk,)
 
 class OrderItem(models.Model):
 
@@ -32,4 +47,6 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return '{}'.format(self.order)
+
+
 
