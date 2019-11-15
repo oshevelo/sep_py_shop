@@ -7,6 +7,6 @@ from django.utils import timezone
 class Payment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     payment_id = models.CharField(max_length=100)
-    product = models.CharField(max_length=100)
+    #product = models.ForeignKey(Product, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=6)
     date = models.DateTimeField(default=timezone.now)
