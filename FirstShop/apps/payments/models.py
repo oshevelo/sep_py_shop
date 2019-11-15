@@ -10,3 +10,6 @@ class Payment(models.Model):
     #product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=False)
     amount = models.DecimalField(default=0, max_digits=10, decimal_places=6, null=True, blank=False)
     date = models.DateTimeField(default=timezone.now, null=True, blank=False)
+
+    def __str__(self):
+        return 'user = {}, payment_id = {}'.format(self.user, self.payment_id, self.pk)
