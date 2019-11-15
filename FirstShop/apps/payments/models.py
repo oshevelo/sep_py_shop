@@ -5,8 +5,8 @@ from django.utils import timezone
 # Create your models here.
 
 class Payment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    payment_id = models.CharField(max_length=100)
-    #product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    amount = models.DecimalField(max_digits=10, decimal_places=6)
-    date = models.DateTimeField(default=timezone.now)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=False)
+    payment_id = models.CharField(max_length=100,null=True, blank=False)
+    #product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=False)
+    amount = models.DecimalField(default=0, max_digits=10, decimal_places=6, null=True, blank=False)
+    date = models.DateTimeField(default=timezone.now, null=True, blank=False)
