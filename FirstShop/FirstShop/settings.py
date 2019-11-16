@@ -86,10 +86,10 @@ WSGI_APPLICATION = 'FirstShop.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "shop_internet",
-        "USER": "my_first_site",
-        "PASSWORD": "uKiegho2",
-        "HOST": "localhost",
+        "NAME": "go",
+        "USER": "",
+        "PASSWORD": "",
+        "HOST": "",
         "PORT": "",
     }
 }
@@ -133,3 +133,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+from FirstShop.local import *
