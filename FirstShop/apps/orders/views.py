@@ -2,20 +2,15 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from django.shortcuts import get_object_or_404
-from apps.orders.models import Order
+from apps.orders.models import Order, OrderItem
 from rest_framework import generics
-from apps.orders.serializers import OrderSerializer
+from apps.orders.serializers import OrderSerializer, OrderItemSerializer
 
 
 
+""""" serializer_class for Order """
 
-def index(request):
-    return HttpResponse("Hello, world")
-
-
-
-
-class Order_List_Create(generics.ListCreateAPIView): # ми просто виведимо список  всіх питань
+class Order_List_Create(generics.ListCreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
@@ -27,4 +22,21 @@ class Order_Detail(generics.RetrieveUpdateDestroyAPIView):
 
     def get_object(self):
         obj = get_object_or_404(Order, pk=self.kwargs.get('order_id'))
+        return obj
+
+
+
+""""" serializer_class for OrderItem """
+
+class Order_Item_List_Create(generics.ListCreateAPIView):
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializer
+
+
+class Order_Item_Detail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializer
+
+    def get_object(self):
+        obj = get_object_or_404(OrderItem, pk=self.kwargs.get('order_item_id'))
         return obj

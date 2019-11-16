@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'FirstShop',
+    'apps.carts',
     'apps.mailer',
     'apps.catalog',
     'apps.orders',
