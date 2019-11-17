@@ -1,6 +1,15 @@
 from rest_framework import serializers
 from .models import BaseShipment, Order
 
+class OrderSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField()
+    phone = serializers.CharField(read_only=True)
+    email = serializers.CharField(read_only=True)
+    date_of_order = serializers.CharField(read_only=True)
+
+    class Meta:
+        model = Order
+        fields = ['id', 'phone', 'email', 'date_of_order']
 
 class OrderSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField()
@@ -15,7 +24,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
 class ShipmentSerializer(serializers.ModelSerializer):
     public_order = OrderSerializer()
-
+ 
     class Meta:
         model = BaseShipment
         fields = ('id', 'invoice_id', 'shipment_provider', 'delivery_address', 'shipment_status', 'public_order')
@@ -25,7 +34,6 @@ class ShipmentSerializer(serializers.ModelSerializer):
         if o.my_shipment:
             raise serializers.ValidationError('here')
         return data
-
 
     def create(self, data, *args, **kwargs):
         order_id = data.pop('public_order')
