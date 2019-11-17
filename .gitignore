@@ -1,5 +1,4 @@
-FirstShop/local.py
-*~
+FirstShop/FirstShop/local.py
 .idea/*
 *.sqlite3
 # Byte-compiled / optimized / DLL files
@@ -106,3 +105,4 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+.DS_Store
