@@ -1,9 +1,8 @@
 # class Payment to orders
-from django.db import models
 
 
 
-class PaymentOrder(models.Model):
+class PaymentOrder:
 
     CASH = 'CA'
     CREDIT = 'CR'
@@ -21,7 +20,7 @@ class PaymentOrder(models.Model):
     ]
 
 
-class StatusOrder(models.Model):
+class StatusOrder:
 
     ACCEPTED_FOR_PROCESSING = 'AFP'
     PROCESSING = 'PR'

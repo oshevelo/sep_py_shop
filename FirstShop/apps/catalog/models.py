@@ -11,16 +11,18 @@ class Category(models.Model):
     # category_object.sub_category.all() shows all related child objects
     top_category = models.ForeignKey('self',
                                      null=True,
+                                     # used to make field optional in admin
+                                     blank=True,
                                      related_name='sub_category',
                                      on_delete=models.CASCADE,
                                      help_text='Enter a book top category (e.g. Language, Genre)')
 
-    INDX = models.IntegerField(default=0,
+    indx = models.IntegerField(default=0,
                                help_text='Specify index number for sorting order')
 
     class Meta:
         # Sorting index from smaller to higher e.g. 1 top 2 second etc
-        ordering = ['INDX']
+        ordering = ['indx']
         verbose_name_plural = "Categories"
 
     def __str__(self):

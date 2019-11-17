@@ -1,6 +1,15 @@
 from rest_framework import serializers
 from .models import BaseShipment, Order
 
+class OrderSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField()
+    phone = serializers.CharField(read_only=True)
+    email = serializers.CharField(read_only=True)
+    date_of_order = serializers.CharField(read_only=True)
+
+    class Meta:
+        model = Order
+        fields = ['id', 'phone', 'email', 'date_of_order']
 
 class OrderSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField()
