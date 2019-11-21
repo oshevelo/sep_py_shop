@@ -11,15 +11,15 @@ class OrderSerializer(serializers.ModelSerializer):
         model = Order
         fields = ['id', 'phone', 'email', 'date_of_order']
 
-class OrderSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField()
-    phone = serializers.CharField(read_only=True)
-    email = serializers.CharField(read_only=True)
-    date_of_order = serializers.CharField(read_only=True)
-
-    class Meta:
-        model = Order
-        fields = ['id', 'phone', 'email', 'date_of_order']
+# class OrderSerializer(serializers.ModelSerializer):
+#     id = serializers.IntegerField()
+#     phone = serializers.CharField(read_only=True)
+#     email = serializers.CharField(read_only=True)
+#     date_of_order = serializers.CharField(read_only=True)
+#
+#     class Meta:
+#         model = Order
+#         fields = ['id', 'phone', 'email', 'date_of_order']
 
 
 class ShipmentSerializer(serializers.ModelSerializer):

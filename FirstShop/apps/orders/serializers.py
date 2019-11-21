@@ -1,35 +1,55 @@
 from rest_framework import serializers
 from apps.orders.models import Order, OrderItem
-from FirstShop.defs import PaymentOrder, StatusOrder
-
-
-
-class OrderSerializer(serializers.ModelSerializer):
-
-    id = serializers.IntegerField()
-    user = serializers.CharField()
-    phone = serializers.CharField()
-    email = serializers.EmailField()
-    payment = serializers.ChoiceField(choices=PaymentOrder.PAYMENT_CHOICES, default=PaymentOrder.CASH)
-    status = serializers.ChoiceField(choices=StatusOrder.STATUS_CHOICES, default=StatusOrder.ACCEPTED_FOR_PROCESSING)
-
-    class Meta:
-        model = Order
-        fields = ['id', 'user', 'phone', 'email', 'payment', 'status']
 
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
-    order = OrderSerializer()
+
+    id = serializers.IntegerField()
+    amount = serializers.IntegerField(min_value=0, default=1)
+    price = serializers.DecimalField(max_digits=100, decimal_places=2, default=11)
+    discount = serializers.IntegerField(max_value=100, min_value=0, default=0)
 
     class Meta:
         model = OrderItem
-        fields = ['id', 'amount', 'price', 'discount', 'order']
+        fields = ('id', 'amount', 'price', 'discount')
 
-    def create(self, data, *args, **kwargs):
-        order_id = data.pop('order')
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    items = OrderItemSerializer(many=True)
+    id = serializers.IntegerField()
+
+    class Meta:
+         model = Order
+         fields = ('id', 'user', 'public_id', 'phone', 'email', 'payment', 'status', 'items')
+
+
+
+    def create(self,data, *args, **kwargs):
+        items_id = data.pop('items')
         obj = super().create(data)
-        o = Order.objects.get(pk=order_id['id'])
-        obj.public_order = o
+        o = Order.objects.get(pk=items_id['id'])
+        obj.items = o
         obj.save()
         return obj
+
+
+
+
+
+    # це другий спосіб реалізації
+    # def get_fields(self):
+    #     fields = super(OrderSerializer, self).get_fields()
+    #     fields['items'] = OrderItemSerializer(many=True)
+    #
+    #     return fields
+
+
+
+
+
+
+
+
+
