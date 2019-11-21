@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.contrib.flatpages import views
 urlpatterns = [
-    path(r'^jet/', include('jet.urls', 'jet')),
+   
     path('admin/', admin.site.urls),
     path('apps.carts/', include('apps.carts.urls')),
     path('orders/', include('apps.orders.urls')),
