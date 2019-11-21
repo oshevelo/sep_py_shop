@@ -2,13 +2,10 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from django.shortcuts import get_object_or_404
-from apps.orders.models import Order, OrderItem
+from apps.orders.models import Order
 from rest_framework import generics
-from apps.orders.serializers import OrderSerializer, OrderItemSerializer
+from apps.orders.serializers import OrderSerializer
 
-
-
-""""" serializer_class for Order """
 
 class Order_List_Create(generics.ListCreateAPIView):
     queryset = Order.objects.all()
@@ -23,11 +20,8 @@ class Order_Detail(generics.RetrieveUpdateDestroyAPIView):
     def get_object(self):
         obj = get_object_or_404(Order, pk=self.kwargs.get('order_id'))
         return obj
-
-
-
-""""" serializer_class for OrderItem """
-
+      
+      
 class Order_Item_List_Create(generics.ListCreateAPIView):
     queryset = OrderItem.objects.all()
     serializer_class = OrderItemSerializer
@@ -40,3 +34,4 @@ class Order_Item_Detail(generics.RetrieveUpdateDestroyAPIView):
     def get_object(self):
         obj = get_object_or_404(OrderItem, pk=self.kwargs.get('order_item_id'))
         return obj
+

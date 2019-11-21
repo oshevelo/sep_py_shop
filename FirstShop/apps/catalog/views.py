@@ -7,8 +7,7 @@ from apps.catalog.models import Category
 from apps.catalog.serializers import CategorySerializer
 
 
-# TBD Why not possible create generics.ListCreateAPIView
-class CategoryList(generics.ListAPIView):
+class CategoryList(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 

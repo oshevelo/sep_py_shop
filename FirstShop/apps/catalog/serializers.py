@@ -4,7 +4,6 @@ from apps.catalog.models import Category
 
 
 class CategorySerializer(serializers.ModelSerializer):
-    # TBD How to add nested top categories ?
     class Meta:
         model = Category
 
@@ -15,3 +14,12 @@ class CategorySerializer(serializers.ModelSerializer):
         fields['sub_category'] = CategorySerializer(many=True)
 
         return fields
+
+    def create(self, validated_data):
+        sub_categories_data = validated_data.pop('sub_category')
+        category = Category.objects.create(**validated_data)
+        for sub_category_data in sub_categories_data:
+            # How to solve error Error in formatting: RecursionError: maximum recursion depth exceeded
+            # create() got multiple values for keyword argument 'top_category'
+            Category.objects.create(top_category=category, **sub_category_data)
+        return category
