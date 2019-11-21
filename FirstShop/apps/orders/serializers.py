@@ -15,7 +15,6 @@ class OrderItemSerializer(serializers.ModelSerializer):
         fields = ('id', 'amount', 'price', 'discount')
 
 
-
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True)
     id = serializers.IntegerField()
@@ -37,19 +36,10 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 
-
     # це другий спосіб реалізації
     # def get_fields(self):
     #     fields = super(OrderSerializer, self).get_fields()
     #     fields['items'] = OrderItemSerializer(many=True)
     #
     #     return fields
-
-
-
-
-
-
-
-
 

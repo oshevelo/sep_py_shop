@@ -7,9 +7,6 @@ from rest_framework import generics
 from apps.orders.serializers import OrderSerializer
 
 
-
-#Serializer for Order
-
 class Order_List_Create(generics.ListCreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
@@ -23,20 +20,18 @@ class Order_Detail(generics.RetrieveUpdateDestroyAPIView):
     def get_object(self):
         obj = get_object_or_404(Order, pk=self.kwargs.get('order_id'))
         return obj
+      
+      
+class Order_Item_List_Create(generics.ListCreateAPIView):
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializer
 
 
-#
-# """"" serializer_class for OrderItem """
-#
-# class Order_Item_List_Create(generics.ListCreateAPIView):
-#     queryset = OrderItem.objects.all()
-#     serializer_class = OrderItemSerializer
-#
-#
-# class Order_Item_Detail(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = OrderItem.objects.all()
-#     serializer_class = OrderItemSerializer
-#
-#     def get_object(self):
-#         obj = get_object_or_404(OrderItem, pk=self.kwargs.get('order_item_id'))
-#         return obj
+class Order_Item_Detail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializer
+
+    def get_object(self):
+        obj = get_object_or_404(OrderItem, pk=self.kwargs.get('order_item_id'))
+        return obj
+
