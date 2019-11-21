@@ -25,6 +25,7 @@ PAYMENT_CHOICES =[
 
 
 class Order(models.Model):
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     public_id = models.CharField(max_length=30, null=True, blank=True)
     phone = models.CharField(max_length=13, null=True, blank=False)
@@ -42,14 +43,14 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
 
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_item', null=True, blank=True)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items', null=True, blank=True)
     # product_id = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
     amount = models.PositiveIntegerField(default=1, null=True, blank=False)
     price = models.DecimalField(max_digits=100, decimal_places=2, null=True, blank=False)
     discount = models.PositiveIntegerField(default=None, null=True, blank=True)
 
     def __str__(self):
-        return '{}'.format(self.order)
+        return '{}, price = {}'.format(self.order, self.price)
 
 
 

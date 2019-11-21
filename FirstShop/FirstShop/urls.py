@@ -16,12 +16,15 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
+from django.contrib.flatpages import views
 urlpatterns = [
     path(r'^jet/', include('jet.urls', 'jet')),
     path('admin/', admin.site.urls),
     path('apps.carts/', include('apps.carts.urls')),
-    path('apps.orders/', include('apps.orders.urls')),
+    path('orders/', include('apps.orders.urls')),
     path('catalog/', include('apps.catalog.urls')),
     path('shipments/', include('apps.shipments.urls')),
     path('payments/', include('apps.payments.urls'))
+    path('products/', include('apps.products.urls'))
+    path('pages/', include('django.contrib.flatpages.urls')),
 ]
