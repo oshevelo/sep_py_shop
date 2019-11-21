@@ -3,7 +3,17 @@ from rest_framework import serializers
 from apps.catalog.models import Category
 
 
+class TopCategorySerializer(serializers.ModelSerializer):
+    # TBD How to add nested top categories ?
+
+    class Meta:
+        model = Category
+
+        fields = ('id', 'category_name')
+
+
 class CategorySerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Category
 
@@ -12,6 +22,7 @@ class CategorySerializer(serializers.ModelSerializer):
     def get_fields(self):
         fields = super(CategorySerializer, self).get_fields()
         fields['sub_category'] = CategorySerializer(many=True)
+        fields['top_category'] = TopCategorySerializer()
 
         return fields
 

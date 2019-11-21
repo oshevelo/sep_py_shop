@@ -31,7 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-
+    'jet',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,7 +47,7 @@ INSTALLED_APPS = [
     'apps.catalog',
     'apps.orders',
     'apps.shipments',
-    'apps.payments'
+    'apps.payments',
     'apps.products',
 ]
 
@@ -138,7 +139,7 @@ STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-
+    'PAGE_SIZE': 100
 }
 
 from .local import *
