@@ -31,8 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'jet',
-    'rest_framework',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,11 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'FirstShop',
-    'apps.carts',
-    'apps.mailer',
-    'apps.catalog',
-    'apps.orders',
-    'apps.shipments',
+
 ]
 
 MIDDLEWARE = [
