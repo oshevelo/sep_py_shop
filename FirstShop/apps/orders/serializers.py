@@ -5,7 +5,7 @@ from apps.orders.models import Order, OrderItem
 
 class OrderItemSerializer(serializers.ModelSerializer):
 
-    id = serializers.IntegerField()
+
     amount = serializers.IntegerField(min_value=0, default=1)
     price = serializers.DecimalField(max_digits=100, decimal_places=2, default=11)
     discount = serializers.IntegerField(max_value=100, min_value=0, default=0)
@@ -17,7 +17,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True)
-    id = serializers.IntegerField()
+
 
     class Meta:
          model = Order
