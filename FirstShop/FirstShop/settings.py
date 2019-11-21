@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.flatpages',
     'FirstShop',
     'apps.carts',
     'apps.mailer',
@@ -47,7 +49,6 @@ INSTALLED_APPS = [
     'apps.shipments',
     'apps.payments',
     'apps.products',
-
 ]
 
 MIDDLEWARE = [
@@ -58,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 ]
 
 ROOT_URLCONF = 'FirstShop.urls'
@@ -136,8 +138,16 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
+<<<<<<< HEAD
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination'
 }
 
 from FirstShop.local import *
 
+=======
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 100
+}
+
+from .local import *
+>>>>>>> d9e85e57091f5463fdb8962427cf81a64d826b11

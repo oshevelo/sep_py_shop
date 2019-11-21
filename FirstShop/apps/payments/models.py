@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
-from django.http import HttpRequest, request
 from apps.products.models import Product
+from django.contrib.postgres.fields import JSONField
 # Create your models here.
 
 PAY_PROVIDER = [
@@ -18,11 +18,11 @@ STATUS = [
 
 class BillingLogs(models.Model):
     payment_date = models.DateTimeField(default=timezone.now, null=True, blank=False)
-    status = models.CharField(max_length=100, choices=STATUS)
-    if request == 'POST':
-        info = HttpRequest.POST
-    else:
-        info = HttpRequest.body
+    status = models.CharField(max_length=100, choices=STATUS, null=True, blank=False)
+    data = JSONField(null=True, blank=False)
+
+    def __str__(self):
+        return 'data = {}'.format(self.data)
 
 
 class Payment(models.Model):
