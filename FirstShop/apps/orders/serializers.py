@@ -31,8 +31,7 @@ class OrderSerializer(serializers.ModelSerializer):
         o = Order.objects.get(pk=items_id['id'])
         obj.items = o
         obj.save()
-        return obj
-    
+        return obj 
 
 
 
