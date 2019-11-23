@@ -17,15 +17,17 @@ STATUS = [
 
 
 class BillingLogs(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=False)
     payment_date = models.DateTimeField(default=timezone.now, null=True, blank=False)
     status = models.CharField(max_length=100, choices=STATUS, null=True, blank=False)
     data = JSONField(null=True, blank=False)
 
     def __str__(self):
-        return 'data = {}'.format(self.data)
+        return 'user = {}'.format(self.user)
 
 
 class Payment(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=False)
     payment_id = models.CharField(max_length=100, null=True, blank=False)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=False)
