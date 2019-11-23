@@ -5,14 +5,9 @@ from apps.orders.models import Order, OrderItem
 
 class OrderItemSerializer(serializers.ModelSerializer):
 
-
-    amount = serializers.IntegerField(min_value=0, default=1)
-    price = serializers.DecimalField(max_digits=100, decimal_places=2, default=11)
-    discount = serializers.IntegerField(max_value=100, min_value=0, default=0)
-
     class Meta:
         model = OrderItem
-        fields = ('id', 'amount', 'price', 'discount')
+        fields = ['id', 'amount', 'price', 'discount']
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -20,14 +15,75 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
     class Meta:
-         model = Order
-         fields = ('id', 'user', 'public_id', 'phone', 'email', 'payment', 'status', 'items')
+         model = Order  # THIS IS Order!
+         fields = ['id', 'user', 'public_id', 'phone', 'email', 'payment', 'status', 'items']
 
 
+    def create(self, validated_data):
+        items_data = validated_data.pop('items')
+        order = Order.objects.create(**validated_data)
+        for item_data in items_data:
+            OrderItem.objects.create(order=order, **item_data)
+        return order
+
+
+
+
+
+"""""    method init dont work
+
+class OrderItemSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    amount = serializers.IntegerField()
+    price = serializers.IntegerField()
+    discount = serializers.IntegerField()
+
+    def create(self, validated_data):
+        return OrderItem.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.email = validated_data.get('amount', instance.amount)
+        instance.content = validated_data.get('price', instance.price)
+        instance.created = validated_data.get('discount', instance.discount)
+        return instance
+
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    items = OrderItemSerializer(many=True)
+
+
+    class Meta:
+         model = Order  # THIS IS Order!
+         fields = ['id', 'user', 'public_id', 'phone', 'email', 'payment', 'status', 'items']
+
+
+    def create(self, validated_data):
+        items_data = validated_data.pop('items')
+        order = Order.objects.create(**validated_data)
+        for item_data in items_data:
+            OrderItem.objects.create(order=order, **item_data)
+        return order
+
+
+"""""
+
+
+
+
+""""" NOTES
+    def create(self, validated_data):                       #спитати за цю штуку щоб посилатися на одного?
+        item_id = validated_data.pop('items')               # яка різниця між цими create -тами
+        obj = super().create(**validated_data)
+        item = OrderItem.objects.get(item_id['id'])
+        obj.items = item
+        obj.save()
+        return obj
+        
 
     def create(self,data, *args, **kwargs):
-        items_id = data.pop('items')
-        obj = super().create(data)
+        items_id = data.pop('items')         # THIS ARRAY ITEMS FROM OBJECTS
+        obj = super().create(data)                 # THIS IS Order!
         o = Order.objects.get(pk=items_id['id'])
         obj.items = o
         obj.save()
@@ -36,10 +92,23 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 
-    # це другий спосіб реалізації
-    # def get_fields(self):
-    #     fields = super(OrderSerializer, self).get_fields()
-    #     fields['items'] = OrderItemSerializer(many=True)
-    #
-    #     return fields
+    # It is second version realisation:
+    def get_fields(self):
+        fields = super(OrderSerializer, self).get_fields()
+        fields['items'] = OrderItemSerializer(many=True)
+        return fields
+
+    #######Sample it for me
+    # sub_category = CategorySerializer(many=True)
+    # top_category = TopCategorySerializer()
+    #######
+    # фільтер нам дає зажди масив, filter())
+    #first завжди повертає 1 елемент з цього масива )
+    # це щоб на один заказ не можна було привязати дві доставки
+
+"""""
+
+
+
+
 
