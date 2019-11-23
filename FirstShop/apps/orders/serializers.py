@@ -32,3 +32,14 @@ class OrderSerializer(serializers.ModelSerializer):
         obj.items = o
         obj.save()
         return obj
+    
+
+
+
+     # це другий спосіб реалізації
+     # def get_fields(self):
+     #     fields = super(OrderSerializer, self).get_fields()
+     #     fields['items'] = OrderItemSerializer(many=True)
+     #
+     #     return fields
+
