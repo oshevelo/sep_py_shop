@@ -142,6 +142,6 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 100
 }
 
-from FirstShop.local import *
+from .local import *
 
 
