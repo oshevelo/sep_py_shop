@@ -143,5 +143,3 @@ REST_FRAMEWORK = {
 }
 
 from .local import *
-
-
