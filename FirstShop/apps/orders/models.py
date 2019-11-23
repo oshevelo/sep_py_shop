@@ -51,6 +51,7 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return '{}, price = {}'.format(self.order, self.price)
+
     
     
     
