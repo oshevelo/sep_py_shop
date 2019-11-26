@@ -2,7 +2,7 @@ from FirstShop.defs import PaymentOrder, StatusOrder
 
 from django.db import models
 from django.contrib.auth.models import User
-
+from apps.products.models import Product
 
 #from django.utils import timezone
 
@@ -28,7 +28,7 @@ class Order(models.Model):
 class OrderItem(models.Model):
 
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items', null=True, blank=True)
-     #product_id = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
+    product_id = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
     amount = models.PositiveIntegerField(default=1, null=True, blank=False)
     price = models.DecimalField(max_digits=100, decimal_places=2, null=True, blank=False)
     discount = models.PositiveIntegerField(default=None, null=True, blank=True)
