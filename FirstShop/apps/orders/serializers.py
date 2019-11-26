@@ -29,49 +29,6 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 
-
-
-"""""    method init dont work
-
-class OrderItemSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
-    amount = serializers.IntegerField()
-    price = serializers.IntegerField()
-    discount = serializers.IntegerField()
-
-    def create(self, validated_data):
-        return OrderItem.objects.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        instance.email = validated_data.get('amount', instance.amount)
-        instance.content = validated_data.get('price', instance.price)
-        instance.created = validated_data.get('discount', instance.discount)
-        return instance
-
-
-
-class OrderSerializer(serializers.ModelSerializer):
-    items = OrderItemSerializer(many=True)
-
-
-    class Meta:
-         model = Order  # THIS IS Order!
-         fields = ['id', 'user', 'public_id', 'phone', 'email', 'payment', 'status', 'items']
-
-
-    def create(self, validated_data):
-        items_data = validated_data.pop('items')
-        order = Order.objects.create(**validated_data)
-        for item_data in items_data:
-            OrderItem.objects.create(order=order, **item_data)
-        return order
-
-
-"""""
-
-
-
-
 """"" NOTES
     def create(self, validated_data):                       #спитати за цю штуку щоб посилатися на одного?
         item_id = validated_data.pop('items')               # яка різниця між цими create -тами
@@ -89,8 +46,6 @@ class OrderSerializer(serializers.ModelSerializer):
         obj.items = o
         obj.save()
         return obj
-
-
 
 
     # It is second version realisation:
