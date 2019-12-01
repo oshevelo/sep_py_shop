@@ -1,18 +1,19 @@
 from django.db import models
+from django.contrib.postgres.fields import JSONField
+from apps.orders.models import Order #,  Payment
+from FirstShop.defs import DeliveryStatus, DeliveryProvider
 
 # from FirstShop.apps.orders.models import Payment
-from apps.orders.models import Order
-from FirstShop.variables import DeliveryStatus, DeliveryProvider
 
 
-class BaseShipment(models.Model):
+class Shipment(models.Model):
 
-    public_order = models.OneToOneField(
+    public_id = models.OneToOneField(
         Order,
         on_delete=models.CASCADE,
         related_name='my_shipment',
-        blank=True,
-        null=True
+        null=True,
+        default=None
     )
 
     DELIVERY = [
@@ -39,53 +40,57 @@ class BaseShipment(models.Model):
     )
     shipment_status_date = models.DateTimeField(
         'status_date',
-        auto_now_add=True
-    )
-    status_change_date = models.DateTimeField(
-        'status_change_date',
         auto_now=True
     )
-
-    DELIVERY_STATUS = [
-        (DeliveryStatus.WaitForSender, 'Нова пошта очікує надходження від відправника'),
-        (DeliveryStatus.DeletedForm, 'Видалено'),
-        (DeliveryStatus.NumberNotFound, 'Номер не знайдено'),
-        (DeliveryStatus.DeliveryInOblast, f'Відправлення у місті {delivery_address}'),
-        (DeliveryStatus.DeliveryInLocal, f'Відправлення у місті {delivery_address}'),
-        (DeliveryStatus.DeliveryOnTheWay, 'Відправлення прямує до міста'),
-        (DeliveryStatus.DeliveryInTheCity,
-         f'Відправлення у місті {delivery_address}, орієнтовна доставка до ВІДДІЛЕННЯ-{post_branch} Очікуйте додаткове повідомлення про прибуття.'),
-        (DeliveryStatus.DeliveryOnTheBranch_1, 'Прибув на відділення'),
-        (DeliveryStatus.DeliveryOnTheBranch_2, 'Прибув на відділення'),
-        (DeliveryStatus.DeliveryReceived, 'Відправлення отримано'),
-        (DeliveryStatus.DeliveryReceivedCashback,
-         f'Відправлення отримано {shipment_status_date}. Протягом доби ви одержите SMS-повідомлення про надходження грошового переказу та зможете отримати його в касі відділення «Нова пошта»'),
-        (DeliveryStatus.DeliveryReceivedCashbackGet, f'Відправлення отримано {shipment_status_date}. Грошовий переказ видано одержувачу.'),
-        (DeliveryStatus.DeliveryReceivedCheck, 'Відправлення передано до огляду отримувачу'),
-        (DeliveryStatus.OnTheWayToCustomer, 'На шляху до одержувача'),
-        (DeliveryStatus.RejectBySender_1, 'Відмова одержувача'),
-        (DeliveryStatus.RejectBySender_2, 'Відмова одержувача'),
-        (DeliveryStatus.RejectBySender_3, 'Відмова одержувача'),
-        (DeliveryStatus.DeliveryAddressChange, 'Змінено адресу'),
-        (DeliveryStatus.DeliveryHoldEnd, 'Припинено зберігання'),
-        (DeliveryStatus.DeliveryBack, 'Одержано і створено ЄН зворотньої доставки')
-    ]
+    status_change_date = models.DateTimeField(
+        'status_date_change',
+        auto_created=True
+    )
 
     shipment_status = models.IntegerField(
         default=DeliveryStatus.WaitForSender,
-        choices=DELIVERY_STATUS
+        choices=DeliveryStatus.DELIVERY_STATUS
     )
 
     invoice_id = models.CharField(
         max_length=200,
         null=True,
-        default=None
+        default=None,
+        verbose_name='DocumentNumber'
     )
 
     class Meta:
         app_label = 'shipments'
-        unique_together = ['public_order', 'delivery_address']
-        ordering = ['public_order']
+        ordering = ['public_id']
 
     def __str__(self):
         return 'order {}'.format(self.invoice_id)
+
+
+class ShipmentLog(models.Model):
+    public_id = models.OneToOneField(
+        Shipment,
+        on_delete=models.CASCADE,
+        related_name='my_shipment_log',
+        blank=True,
+        null=True
+    )
+
+    send_date = models.DateTimeField(
+        verbose_name='Send Date',
+        auto_now_add=True
+    )
+
+    log_field = models.TextField(
+        verbose_name='Log',
+        blank=True,
+        null=True   
+    )
+
+    request = JSONField(
+        verbose_name='Request'
+    )
+
+    is_processed = models.BooleanField(
+        verbose_name='Is request processed'
+    )

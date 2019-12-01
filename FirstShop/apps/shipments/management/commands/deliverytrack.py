@@ -11,8 +11,6 @@ API_Key = 'b313e7c9662a02870c0d1b8a0cb9e683'
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        i = input("Public_order_id: ")
-
         getStatusDocuments = {
             "apiKey": API_Key,
             "modelName": "TrackingDocument",
@@ -20,8 +18,8 @@ class Command(BaseCommand):
             "methodProperties": {
                 "Documents": [
                     {
-                        "DocumentNumber": BaseShipment.objects.values_list('invoice_id', flat=True).get(public_order_id=i),
-                        "Phone": Order.objects.values_list('phone', flat=True).get(public_order=i)
+                        "DocumentNumber": BaseShipment.objects.values_list('invoice_id', flat=True).get(public_order_id=1),
+                        "Phone": Order.objects.values_list('phone', flat=True).get(public_order=1)
                     }
                 ]
             }
