@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import BaseShipment, Order
 
 class OrderSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField()
+    id = serializers.IntegerField()s
     phone = serializers.CharField(read_only=True)
     email = serializers.CharField(read_only=True)
     date_of_order = serializers.CharField(read_only=True)

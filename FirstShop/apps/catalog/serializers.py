@@ -4,6 +4,9 @@ from apps.catalog.models import Category
 
 
 class TopCategorySerializer(serializers.ModelSerializer):
+
+    id = serializers.IntegerField()
+
     class Meta:
         model = Category
 
@@ -29,7 +32,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
         # ? Keep remove sub cat data ?
         print('22222222222222222222222---------------------------------------------------------')
-        for k, v in validated_data:
+        for k, v in validated_data.items():
             print(k, v)
         print(len(validated_data['top_category']))
         sub_categories_data = validated_data.pop('sub_category')
@@ -42,7 +45,7 @@ class CategorySerializer(serializers.ModelSerializer):
             print('---------------------------------------------------------')
             print(top_category)
             # TBD ad id verification
-            top_cat = Category.objects.get(top_category['id'])
+            top_cat = Category.objects.get(pk=top_category['id'])
             category.top_category = top_cat
             category.save()
         return category
