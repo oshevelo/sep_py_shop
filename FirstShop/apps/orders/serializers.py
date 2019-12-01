@@ -2,73 +2,26 @@ from rest_framework import serializers
 from apps.orders.models import Order, OrderItem
 
 
-
 class OrderItemSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = OrderItem
-        fields = ['id', 'amount', 'price', 'discount']
+        fields = ['id', 'amount', 'price', 'discount', 'product_id']
 
 
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True)
 
-
     class Meta:
-         model = Order  # THIS IS Order!
-         fields = ['id', 'user', 'public_id', 'phone', 'email', 'payment', 'status', 'items']
-
+        model = Order  # THIS IS Order!
+        fields = ['id', 'user', 'public_id', 'phone', 'email', 'payment', 'status', 'items']
 
     def create(self, validated_data):
         items_data = validated_data.pop('items')
         order = Order.objects.create(**validated_data)
         for item_data in items_data:
             OrderItem.objects.create(order=order, **item_data)
+
         return order
-
-
-
-
-
-"""""    method init dont work
-
-class OrderItemSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
-    amount = serializers.IntegerField()
-    price = serializers.IntegerField()
-    discount = serializers.IntegerField()
-
-    def create(self, validated_data):
-        return OrderItem.objects.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        instance.email = validated_data.get('amount', instance.amount)
-        instance.content = validated_data.get('price', instance.price)
-        instance.created = validated_data.get('discount', instance.discount)
-        return instance
-
-
-
-class OrderSerializer(serializers.ModelSerializer):
-    items = OrderItemSerializer(many=True)
-
-
-    class Meta:
-         model = Order  # THIS IS Order!
-         fields = ['id', 'user', 'public_id', 'phone', 'email', 'payment', 'status', 'items']
-
-
-    def create(self, validated_data):
-        items_data = validated_data.pop('items')
-        order = Order.objects.create(**validated_data)
-        for item_data in items_data:
-            OrderItem.objects.create(order=order, **item_data)
-        return order
-
-
-"""""
-
-
 
 
 """"" NOTES
@@ -79,7 +32,7 @@ class OrderSerializer(serializers.ModelSerializer):
         obj.items = item
         obj.save()
         return obj
-        
+
 
     def create(self,data, *args, **kwargs):
         items_id = data.pop('items')         # THIS ARRAY ITEMS FROM OBJECTS
@@ -88,8 +41,6 @@ class OrderSerializer(serializers.ModelSerializer):
         obj.items = o
         obj.save()
         return obj
-
-
 
 
     # It is second version realisation:
@@ -107,6 +58,7 @@ class OrderSerializer(serializers.ModelSerializer):
     # це щоб на один заказ не можна було привязати дві доставки
 
 """""
+
 
 
 
