@@ -12,7 +12,7 @@ class Product(models.Model):
     #author= models.ForeignKey('Author', on_delete=models.SET_NULL, null = True)
     #gengre = models.ManyToManyField('Gengre')
     #publishing_house = models.ForeignKey(Publishing_house, on_delete=models.SET_NULL, null = True) 
-    publication_date = models.DateField()
+    publication_date = models.DateTimeField()
     number_of_pages = models.IntegerField(default = 0)
     
     

@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Product,  Complect
+from .models import Product, Complect
 class ProductSerializer(ModelSerializer):
     class Meta:
         model = Product

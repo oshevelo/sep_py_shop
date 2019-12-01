@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from .serializers import ProductSerializer ComplectSerializer
+from .serializers import ProductSerializer, ComplectSerializer
 from .models import Product, Complect
 
 
