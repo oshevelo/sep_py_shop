@@ -1,22 +1,25 @@
 from django.contrib import admin
-from .models import BaseShipment
-
-
-class ShipmentInLine(admin.TabularInline):
-    model = BaseShipment
-    extra = 5
+from .models import Shipment, ShipmentLog
 
 
 class ShipmentAdmin(admin.ModelAdmin):
     list_display = (
-        'public_order',
+        'public_id',
         'shipment_provider',
-        # 'payment_method',
-        # FIXME: add if it needed
         'delivery_address',
         'shipment_status',
         'shipment_status_date'
     )
 
+class ShipmentLogAdmin(admin.ModelAdmin):
+    list_display = (
+        'public_id',
+        'send_date',
+        'log_field',
+        'request',
+        'is_processed'
+    )
 
-admin.site.register(BaseShipment, ShipmentAdmin)
+
+admin.site.register(Shipment, ShipmentAdmin)
+admin.site.register(ShipmentLog, ShipmentLogAdmin)
