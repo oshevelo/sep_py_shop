@@ -5,4 +5,4 @@ from .models import Payment, BillingLogs
 class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
-        fields = ['id', 'user', 'public_id', 'product', 'amount', 'date', 'provider']
+        fields = ['id', 'user', 'product', 'amount', 'date', 'provider']

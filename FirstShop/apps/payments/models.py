@@ -32,4 +32,5 @@ class Payment(models.Model):
     provider = models.CharField(max_length=100, choices=PAY_PROVIDER, null=True, blank=False)
 
     def __str__(self):
-        return 'user = {}, id = {}'.format(self.user, self.id, self.pk)
+        return 'user = {}, id = {}, date = {}'.format(self.user, self.id, self.date, self.pk)
+
