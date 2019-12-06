@@ -38,3 +38,4 @@ class CategorySerializer(serializers.ModelSerializer):
             category.top_category = top_cat
             category.save()
         return category
+
