@@ -22,6 +22,7 @@ class Complect(models.Model):
     name = models.CharField(max_length = 200)
     detail = models.TextField(default = "", editable = True)
     discount = models.DecimalField(default = 0, max_digits=2, decimal_places = 2, null=True, blank=True)
-    products = models.ManyToManyField(Product)  
+    products = models.ManyToManyField(Product)
     def __str__(self):
         return self.name
+        
