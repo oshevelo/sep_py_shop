@@ -5,11 +5,13 @@ from django.shortcuts import get_object_or_404
 from apps.orders.models import Order, OrderItem
 from rest_framework import generics
 from apps.orders.serializers import OrderSerializer
-
+from rest_framework import filters
 
 class Order_List_Create(generics.ListCreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+    search_fields = ['=email', 'phone', 'items__amount', 'items__price', 'items__discount']
+    filter_backends = [filters.SearchFilter]
 
 
 class Order_Detail(generics.RetrieveUpdateDestroyAPIView):

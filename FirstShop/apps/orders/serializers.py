@@ -1,48 +1,66 @@
 from rest_framework import serializers
 from apps.orders.models import Order, OrderItem
+from apps.products.models import Product
+
+
+class ProductSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField()
+    product_name = serializers.CharField(read_only=True)
+    product_price = serializers.CharField(read_only=True)
+    product_avaliable_count = serializers.CharField(read_only=True)
+    product_detail = serializers.CharField(read_only=True)
+    product_can_be_sold = serializers.CharField(read_only=True)
+    Publication_date = serializers.CharField(read_only=True)
+    Number_of_pages = serializers.CharField(read_only=True)
+
+    class Meta:
+        model = Product
+        fields = ['id', 'product_name', 'product_price', 'product_avaliable_count', 'product_detail',
+                  'product_can_be_sold', 'Publication_date', 'Number_of_pages']
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
+    product = ProductSerializer(many=True)
     class Meta:
         model = OrderItem
-        fields = ['id', 'amount', 'price', 'discount', 'product_id']
+        fields = ['id', 'order', 'amount', 'price', 'discount', 'product']
+
+
 
 
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True)
 
+
+
     class Meta:
         model = Order  # THIS IS Order!
         fields = ['id', 'user', 'public_id', 'phone', 'email', 'payment', 'status', 'items']
+
+
 
     def create(self, validated_data):
         items_data = validated_data.pop('items')
         order = Order.objects.create(**validated_data)
         for item_data in items_data:
             OrderItem.objects.create(order=order, **item_data)
-
+        product_id = Product.objects.get(pk=order['id'])
+        order.items = product_id
+        order.save()
         return order
 
 
+
+
+
+
+
+
+#default_read_only=TRUE
+#default_read_only=False
+
+
 """"" NOTES
-    def create(self, validated_data):                       #спитати за цю штуку щоб посилатися на одного?
-        item_id = validated_data.pop('items')               # яка різниця між цими create -тами
-        obj = super().create(**validated_data)
-        item = OrderItem.objects.get(item_id['id'])
-        obj.items = item
-        obj.save()
-        return obj
-
-
-    def create(self,data, *args, **kwargs):
-        items_id = data.pop('items')         # THIS ARRAY ITEMS FROM OBJECTS
-        obj = super().create(data)                 # THIS IS Order!
-        o = Order.objects.get(pk=items_id['id'])
-        obj.items = o
-        obj.save()
-        return obj
-
-
     # It is second version realisation:
     def get_fields(self):
         fields = super(OrderSerializer, self).get_fields()
@@ -61,6 +79,24 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 
-
-
-
+""""
+{
+        "id": 86,
+        "user": 1,
+        "public_id": "1",
+        "phone": "3323",
+        "email": "q@mai.ru",
+        "payment": "PP",
+        "status": "PAID",
+        "items": [
+            {
+                "id": 44,
+                "order": 86,
+                "amount": 1,
+                "price": "9999.00",
+                "discount": 99,
+                "product": [{"id": 1}]
+            }
+        ]
+    }
+"""
