@@ -13,7 +13,7 @@ class ProductView(ListCreateAPIView):
 
     def get_queryset(self, *args, **kwargs):
         if self.request.GET.get('search'):
-            return Product.objects.filter(product_name__icontains=self.request.GET.get('search'))
+            return Product.objects.filter(name__icontains=self.request.GET.get('search'))
         return Product.objects.all()
 
 class SingleProductView(RetrieveUpdateDestroyAPIView):

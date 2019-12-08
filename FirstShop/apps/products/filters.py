@@ -10,7 +10,7 @@ class ProductFilter(FilterSet):
         return qs.filter(name__icontains=value)
 
 
-    product_name = django_filters.filters.CharFilter(method='product_name_contains')
+    name = django_filters.filters.CharFilter(method='name_contains')
 
 
     class Meta:
