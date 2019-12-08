@@ -15,5 +15,5 @@ class Payment_Detail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Payment.objects.all()
 
     def get_object(self):
-        obj = get_object_or_404(Payment, pk=self.kwargs.get('payment_id'))
+        obj = get_object_or_404(Payment, pk=self.kwargs.get('id'))
         return obj
