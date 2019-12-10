@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from apps.catalog.models import Category
+from apps.products.serializers import ProductSerializer
 
 
 class TopCategorySerializer(serializers.ModelSerializer):
@@ -39,3 +40,11 @@ class CategorySerializer(serializers.ModelSerializer):
             category.save()
         return category
 
+
+class CategoryProductSerializer(serializers.ModelSerializer):
+    products = ProductSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Category
+
+        fields = ['id', 'category_name', 'top_category', 'sub_category', 'products']
