@@ -2,9 +2,9 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from django.shortcuts import get_object_or_404
-from .models import Cart
+from apps.carts.models import Cart
 from rest_framework import generics
-from .serializers import CartSerializer
+from apps.carts.serializers import CartSerializer
 
 
 def index(request):
