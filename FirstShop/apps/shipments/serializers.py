@@ -25,7 +25,7 @@ class ShipmentSerializer(serializers.ModelSerializer):
         check_order = Order.objects.filter(pk=data['id']).first()
         
         if not check_order:
-            raise serializers.ValidationError('Wrong ID')
+            raise serializers.ValidationError('Wrong Order Id. Select other ID or create new one')
 
         o = Order.objects.get(pk=data['id'])
         if o.my_shipment:
