@@ -3,7 +3,7 @@ from django_filters import rest_framework as filters
 from rest_framework import generics
 
 from apps.catalog.models import Category
-from apps.catalog.serializers import CategorySerializer
+from apps.catalog.serializers import CategorySerializer, CategoryProductSerializer
 
 
 class CategoryList(generics.ListCreateAPIView):
@@ -19,3 +19,8 @@ class CategoryList(generics.ListCreateAPIView):
 class CategoryDetail(generics.RetrieveDestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+
+class CategoryProductDetail(generics.RetrieveDestroyAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategoryProductSerializer
