@@ -20,10 +20,11 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
-    product = ProductSerializer(many=True)
+    product = ProductSerializer(many=True, read_only=True)
+    product_id = serializers.IntegerField()
     class Meta:
         model = OrderItem
-        fields = ['id', 'order', 'amount', 'price', 'discount', 'product']
+        fields = ['id', 'order', 'amount', 'price', 'discount', 'product', 'product_id']
 
 
 
@@ -44,7 +45,7 @@ class OrderSerializer(serializers.ModelSerializer):
         order = Order.objects.create(**validated_data)
         for item_data in items_data:
             OrderItem.objects.create(order=order, **item_data)
-        product_id = Product.objects.get(pk=order['id'])
+        product_id = OrderItem.objects.get(pk=items_data['id'])
         order.items = product_id
         order.save()
         return order
