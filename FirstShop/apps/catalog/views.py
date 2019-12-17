@@ -21,6 +21,13 @@ class CategoryDetail(generics.RetrieveDestroyAPIView):
     serializer_class = CategorySerializer
 
 
-class CategoryProductDetail(generics.RetrieveDestroyAPIView):
+class CategoryProductDetail(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategoryProductSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        # e.g. /catalog/categories/products/?category_ids=1,2
+        category_ids_str = self.request.GET.get('category_ids')
+        category_ids = [int(category_id) for category_id in category_ids_str.split(',')]
+
+        return Category.objects.filter(id__in=category_ids)
