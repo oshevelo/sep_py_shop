@@ -2,6 +2,7 @@ from django_filters import rest_framework as filters
 
 from rest_framework import generics
 
+from apps.catalog.filters import ProductByCategoryIdFilter
 from apps.catalog.models import Category
 from apps.catalog.serializers import CategorySerializer, CategoryProductSerializer
 
@@ -24,10 +25,5 @@ class CategoryDetail(generics.RetrieveDestroyAPIView):
 class CategoryProductDetail(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategoryProductSerializer
-
-    def get_queryset(self, *args, **kwargs):
-        # e.g. /catalog/categories/products/?category_ids=1,2
-        category_ids_str = self.request.GET.get('category_ids')
-        category_ids = [int(category_id) for category_id in category_ids_str.split(',')]
-
-        return Category.objects.filter(id__in=category_ids)
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_class = ProductByCategoryIdFilter
