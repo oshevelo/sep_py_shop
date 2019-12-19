@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'jet',
     'rest_framework',
+    'rest_framework_api_key',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -136,12 +137,28 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
+DELIVERY_DATA = {
+    "CitySender": "8d5a980d-391c-11dd-90d9-001a92567626",
+    "Sender": "5ace4a2e-13ee-11e5-add9-005056887b8d",
+    "SenderAddress": "d492290b-55f2-11e5-ad08-005056801333",
+    "ContactSender": "613b77c4-1411-11e5-ad08-005056801333",
+    "SendersPhone": "380634338963",
+    "RecipientCityName": "Kyiv",
+    "RecipientArea": "",
+    "RecipientAreaRegions": "",
+}
+
+HOST_NAME = 'localhost'
+PORT = 8000
+
 
 STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-
+    'DEFAULT_PERMISSION_CLASSES': [
+        "rest_framework_api_key.permissions.HasAPIKey",
+    ]
 }
 
 from .local import *

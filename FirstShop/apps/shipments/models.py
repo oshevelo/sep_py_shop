@@ -28,11 +28,37 @@ class Shipment(models.Model):
         default=DeliveryProvider.pickup
     )
 
-    delivery_address = models.CharField(
+    delivery_address_city = models.CharField(
         max_length=100,
         default=None,
         null=True
     )
+    delivery_address_area = models.CharField(
+        max_length=100,
+        default=None,
+        null=True
+    )
+    delivery_address_area_region = models.CharField(
+        max_length=100,
+        default=None,
+        null=True
+    )
+    delivery_address_street = models.CharField(
+        max_length=100,
+        default=None,
+        null=True
+    )
+    delivery_address_house = models.CharField(
+        max_length=100,
+        default=None,
+        null=True
+    )
+    delivery_address_flat = models.CharField(
+        max_length=100,
+        default=None,
+        null=True
+    )
+
     post_branch = models.CharField(
         max_length=200,
         default=None,
@@ -56,7 +82,7 @@ class Shipment(models.Model):
         max_length=200,
         null=True,
         default=None,
-        verbose_name='DocumentNumber'
+        verbose_name='Document Number'
     )
 
     class Meta:
@@ -87,10 +113,14 @@ class ShipmentLog(models.Model):
         null=True   
     )
 
-    request = JSONField(
-        verbose_name='Request'
+    request = models.TextField(
+        verbose_name='Request',
+        blank=True,
+        null=True
     )
 
-    is_processed = models.BooleanField(
-        verbose_name='Is request processed'
+    response_status = models.CharField(
+        max_length=100,
+        default=None,
+        null=True
     )
