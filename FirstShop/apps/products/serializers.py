@@ -1,19 +1,30 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Product
+from .models import Product, Complect
 class ProductSerializer(ModelSerializer):
-	class Meta:
-		model = Product
-		fields = (
-		'id',
-		'product_name', 
-		'product_price',
-		'product_avaliable_count',
-		'product_detail',
-		'product_can_be_sold',
-		'product_created_updated',
-		#'author_name',
-		#'gengre',
-		#'publishing_house',
-		'Publication_date', 
-		'Number_of_pages',
-		)
+    class Meta:
+        model = Product
+        fields = (
+        'id',
+        'name', 
+        'price',
+        'avaliable_count',
+        'detail',
+        'active',
+        'created',
+        'updated',
+        #'author',
+        #'gengre',
+        #'publishing_house',
+        'publication_date', 
+        'number_of_pages',
+        )
+class ComplectSerializer(ModelSerializer):
+    class Meta:
+        model = Complect
+        fields = (
+        'id'
+        'name',
+        'detail',
+        'discount',
+        'products',
+        )
