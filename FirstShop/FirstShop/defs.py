@@ -1,9 +1,4 @@
 # class Payment to orders
-class SenderInfo:
-    address = "d492290b-55f2-11e5-ad08-005056801333"
-    contact = "613b77c4-1411-11e5-ad08-005056801333"
-
-
 
 
 class PaymentOrder:

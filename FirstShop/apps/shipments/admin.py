@@ -6,7 +6,12 @@ class ShipmentAdmin(admin.ModelAdmin):
     list_display = (
         'public_id',
         'shipment_provider',
-        'delivery_address',
+        'delivery_address_city',
+        'delivery_address_area',
+        'delivery_address_area_region',
+        'delivery_address_street',
+        'delivery_address_house',
+        'delivery_address_flat',
         'shipment_status',
         'shipment_status_date'
     )
@@ -17,7 +22,7 @@ class ShipmentLogAdmin(admin.ModelAdmin):
         'send_date',
         'log_field',
         'request',
-        'is_processed'
+        'response_status'
     )
 
 
