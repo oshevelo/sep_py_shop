@@ -9,20 +9,21 @@ class Migration(migrations.Migration):
         ('orders', '0023_merge_20191121_1733'),
     ]
 
-    operations = [
-        migrations.RemoveField(
-            model_name='order',
-            name='date',
-        ),
-        migrations.RemoveField(
-            model_name='order',
-            name='delivery',
-        ),
-        migrations.AddField(
-            model_name='order',
-            name='date_of_order',
-            field=models.DateTimeField(auto_now_add=True, null=True),
-        ),
+    operations = []
+    '''
+#        migrations.RemoveField(
+#            model_name='order',
+#            name='date',
+#        ),
+#        migrations.RemoveField(
+#            model_name='order',
+#            name='delivery',
+#        ),
+#        migrations.AddField(
+#            model_name='order',
+#            name='date_of_order',
+#            field=models.DateTimeField(auto_now_add=True, null=True),
+#        ),
         migrations.AddField(
             model_name='order',
             name='date_of_paid',
@@ -39,3 +40,4 @@ class Migration(migrations.Migration):
             field=models.CharField(choices=[('ACCEPTED_FOR_PROCESSING', 'Accepted for processing'), ('PROCESSING', 'Processing'), ('PAID', 'Paid'), ('DONE', 'Done')], default='AFP', max_length=100, null=True),
         ),
     ]
+    '''

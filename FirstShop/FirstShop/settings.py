@@ -157,8 +157,8 @@ STATIC_URL = '/static/'
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'DEFAULT_PERMISSION_CLASSES': [
-        "rest_framework_api_key.permissions.HasAPIKey",
+        #"rest_framework_api_key.permissions.HasAPIKey",
     ]
 }
-
+#rest_framework_api_key=''
 from .local import *
