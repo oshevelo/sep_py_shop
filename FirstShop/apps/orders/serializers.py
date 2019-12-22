@@ -1,31 +1,16 @@
 from rest_framework import serializers
 from apps.orders.models import Order, OrderItem
-from apps.products.models import Product
+from apps.products.serializers import ProductSerializer
 
-
-class ProductSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField()
-    product_name = serializers.CharField(read_only=True)
-    product_price = serializers.CharField(read_only=True)
-    product_avaliable_count = serializers.CharField(read_only=True)
-    product_detail = serializers.CharField(read_only=True)
-    product_can_be_sold = serializers.CharField(read_only=True)
-    Publication_date = serializers.CharField(read_only=True)
-    Number_of_pages = serializers.CharField(read_only=True)
-
-    class Meta:
-        model = Product
-        fields = ['id', 'product_name', 'product_price', 'product_avaliable_count', 'product_detail',
-                  'product_can_be_sold', 'Publication_date', 'Number_of_pages']
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
-    #product = ProductSerializer(many=True, read_only=True)
+    product = ProductSerializer(read_only=True)
     product_id = serializers.IntegerField()
 
     class Meta:
         model = OrderItem
-        fields = ['id', 'amount', 'price', 'discount', 'product_id'] #'product',
+        fields = ['id', 'amount', 'price', 'discount', 'product_id', 'product']
 
 
 
@@ -45,10 +30,6 @@ class OrderSerializer(serializers.ModelSerializer):
         for item_data in items_data:
             OrderItem.objects.create(order=order, **item_data)
         return order
-
-
-
-
 
 
 
@@ -77,25 +58,6 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 """"
-{
-        "id": 86,
-        "user": 1,
-        "public_id": "1",
-        "phone": "3323",
-        "email": "q@mai.ru",
-        "payment": "PP",
-        "status": "PAID",
-        "items": [
-            {
-                "id": 44,
-                "order": 86,
-                "amount": 1,
-                "price": "9999.00",
-                "discount": 99,
-                "product": [{"id": 1}]
-            }
-        ]
-    }
 
 {
     "user": 1,
@@ -113,4 +75,36 @@ class OrderSerializer(serializers.ModelSerializer):
         }
     ]
 }
+
+{
+    "id": 11,
+    "user": 1,
+    "public_id": "1",
+    "phone": "8888888",
+    "email": "q@mai.ru",
+    "payment": "PP",
+    "status": "PAID",
+    "items": [
+        {
+            "id": 11,
+            "amount": 1,
+            "price": "9999.00",
+            "discount": 99,
+            "product_id": 3,
+            "product": {
+                "id": 3,
+                "name": "pepsi",
+                "price": "456.0",
+                "avaliable_count": "89",
+                "detail": "very many",
+                "active": "True",
+                "created": "2019-12-20 18:01:37.059589+00:00",
+                "updated": "2019-12-20 18:01:37.059618+00:00",
+                "publication_date": "2019-12-20 20:01:00+00:00",
+                "number_of_pages": "3"
+            }
+        }
+    ]
+}
+
 """

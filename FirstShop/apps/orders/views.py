@@ -6,6 +6,7 @@ from apps.orders.models import Order, OrderItem
 from rest_framework import generics
 from apps.orders.serializers import OrderSerializer
 from rest_framework import filters
+from rest_framework.permissions import IsAuthenticated
 
 
 class Order_List_Create(generics.ListCreateAPIView):
@@ -29,6 +30,7 @@ class Order_Detail(generics.RetrieveUpdateDestroyAPIView):
 
 class OrderList(generics.ListAPIView):
     serializer_class = OrderSerializer
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         user = self.request.user
@@ -36,6 +38,3 @@ class OrderList(generics.ListAPIView):
 
 
 
-# def account(request):
-#     my_orders = Order.objects.filter(user=request.user)
-#     return HttpResponse(my_orders)

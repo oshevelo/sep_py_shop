@@ -3,11 +3,11 @@
 
 class PaymentOrder:
 
-    CASH = 'CA'
-    CREDIT = 'CR'
-    PRIVATPAY = 'PP'
-    PAYOFPARTS = 'POP'
-    PAYOFCARD = 'POC'
+    CASH = 'CASH'
+    CREDIT = 'CREDIT'
+    PRIVATPAY = 'PRIVAT_PAY'
+    PAYOFPARTS = 'PAY_OF_PARTS'
+    PAYOFCARD = 'PAY_OF_CARD'
 
 
     PAYMENT_CHOICES =[
@@ -78,15 +78,15 @@ class DeliveryProvider(object):
 
 class StatusOrder:
 
-    ACCEPTED_FOR_PROCESSING = 'AFP'
-    PROCESSING = 'PR'
-    PAID = 'PA'
-    DONE = 'DO'
+    ACCEPTED_FOR_PROCESSING = 'ACCEPTED_FOR_PROCESSING'
+    PROCESSING = 'PROCESSING'
+    PAID = 'PAID'
+    DONE = 'DONE'
 
 
     STATUS_CHOICES = [
-        ('ACCEPTED_FOR_PROCESSING', 'Accepted for processing'),
-        ('PROCESSING', 'Processing'),
-        ('PAID', 'Paid'),
-        ('DONE', 'Done'),
+        (ACCEPTED_FOR_PROCESSING, 'Accepted for processing'),
+        (PROCESSING, 'Processing'),
+        (PAID, 'Paid'),
+        (DONE, 'Done'),
 ]
