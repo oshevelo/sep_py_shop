@@ -1,7 +1,6 @@
-from rest_framework import serializers
-
 from apps.catalog.models import Category
-from apps.products.serializers import ProductSerializer
+from apps.products.models import Product
+from rest_framework import serializers
 
 
 class TopCategorySerializer(serializers.ModelSerializer):
@@ -42,9 +41,20 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class CategoryProductSerializer(serializers.ModelSerializer):
-    products = ProductSerializer(many=True)
+    categories = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
-        model = Category
-
-        fields = ['id', 'category_name', 'products']
+        model = Product
+        fields = (
+            'id',
+            'name',
+            'price',
+            'avaliable_count',
+            'detail',
+            'active',
+            'created',
+            'updated',
+            'publication_date',
+            'number_of_pages',
+            'categories'
+        )
