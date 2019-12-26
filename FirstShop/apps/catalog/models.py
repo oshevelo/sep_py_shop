@@ -1,6 +1,5 @@
-from django.db import models
-
 from apps.products.models import Product
+from django.db import models
 
 
 class Category(models.Model):
@@ -22,7 +21,7 @@ class Category(models.Model):
     indx = models.IntegerField(default=0,
                                help_text='Specify index number for sorting order')
 
-    products = models.ManyToManyField(Product)
+    products = models.ManyToManyField(Product, related_name='categories')
 
     class Meta:
         # Sorting index from smaller to higher e.g. 1 top 2 second etc
