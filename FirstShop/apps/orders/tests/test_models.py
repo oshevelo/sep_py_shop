@@ -53,7 +53,7 @@ class OrderitemTest(TestCase):
 
         return order_item
 
-    def test_create_order(self):
+    def test_create_order_item(self):
         orderitem = self.create_order_item()
         self.assertTrue(isinstance(orderitem, OrderItem))
 
