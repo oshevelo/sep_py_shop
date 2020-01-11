@@ -7,10 +7,10 @@ from rest_framework import generics, filters
 
 
 class ShipmentList(generics.ListCreateAPIView):
-    serializer_class = ShipmentSerializer
     queryset = Shipment.objects.all()
+    serializer_class = ShipmentSerializer
     filter_backends = [filters.SearchFilter]
-    search_fields = ['id', 'invoice_id', 'shipment_provider', 'delivery_address', 'shipment_status']
+    search_fields = ['id']
 
 
 class ShipmentDetails(generics.RetrieveUpdateDestroyAPIView):
@@ -20,5 +20,3 @@ class ShipmentDetails(generics.RetrieveUpdateDestroyAPIView):
     def get_object(self):
         obj = get_object_or_404(Order, pk=self.kwargs.get('public_id'))
         return obj
-
-

@@ -11,7 +11,12 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ['id', 'phone', 'email', 'date_of_order']
+        fields = [
+            'id',
+            'phone',
+            'email',
+            'date_of_order'
+                  ]
 
 
 class ShipmentSerializer(serializers.ModelSerializer):
@@ -19,7 +24,20 @@ class ShipmentSerializer(serializers.ModelSerializer):
  
     class Meta:
         model = Shipment
-        fields = ['id', 'invoice_id', 'shipment_provider', 'delivery_address', 'shipment_status', 'public_id']
+        fields = [
+            'id',
+            'invoice_id',
+            'shipment_provider',
+            'delivery_address_city',
+            'delivery_address_area',
+            'delivery_address_area_region',
+            'delivery_address_area',
+            'delivery_address_street',
+            'delivery_address_house',
+            'delivery_address_flat',
+            'shipment_status',
+            'public_id'
+        ]
 
     def validate_public_id(self, data, *args, **kwargs):
         check_order = Order.objects.filter(pk=data['id']).first()

@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'jet',
     'rest_framework',
     'rest_framework_api_key',
@@ -41,10 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #'django.contrib.sites',
-    # 'django.contrib.flatpages',
-    'apps',
+    #'django.contrib.flatpages',
+    'FirstShop',
     'apps.carts',
-    #'apps.mailer',
+    'apps.mailer',
     'apps.catalog',
     'apps.orders',
     'apps.shipments',
@@ -55,6 +56,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -70,7 +72,7 @@ ROOT_URLCONF = 'FirstShop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -148,6 +150,11 @@ DELIVERY_DATA = {
     "RecipientAreaRegions": "",
 }
 
+DELIVERY_API_HOST = {
+    'track': 'http://testapi.novaposhta.ua/v2.0/en/documentsTracking/json',
+    'create': 'http://testapi.novaposhta.ua/v2.0/en/save_address/json'
+}
+
 HOST_NAME = 'localhost'
 PORT = 8000
 
@@ -156,9 +163,12 @@ STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'DEFAULT_PERMISSION_CLASSES': [
-        #"rest_framework_api_key.permissions.HasAPIKey",
-    ]
+    'PAGE_SIZE': 20
+   # 'DEFAULT_PERMISSION_CLASSES': [
+   #    "rest_framework_api_key.permissions.HasAPIKey",
+   # ]
 }
-#rest_framework_api_key=''
+
+CORS_ORIGIN_ALLOW_ALL = True
+
 from .local import *
