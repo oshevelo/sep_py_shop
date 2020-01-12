@@ -161,4 +161,8 @@ REST_FRAMEWORK = {
     ]
 }
 #rest_framework_api_key=''
+
+MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
+MEDIA_URL = '/media/'
+
 from .local import *

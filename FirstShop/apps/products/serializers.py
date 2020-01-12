@@ -12,11 +12,7 @@ class ProductSerializer(ModelSerializer):
         'active',
         'created',
         'updated',
-        #'author',
-        #'gengre',
-        #'publishing_house',
-        'publication_date', 
-        'number_of_pages',
+        'attributes',
         )
 class ComplectSerializer(ModelSerializer):
     class Meta:
