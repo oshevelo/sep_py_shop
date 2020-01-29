@@ -1,0 +1,26 @@
+#product {
+    padding: 2%;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-around;
+}
+
+article {
+    flex: 300px;
+    padding: 2%;
+}
+
+img {
+    float: left;
+    padding-right: 10%;
+}
+
+form {
+    position: absolute; right: 20px;
+    
+}
+
+a {
+    font-size: small;
+    padding: 2%;
+}

@@ -5,6 +5,7 @@ var search = '?search=';
 var buttonElement = document.getElementById("button");
 
 buttonElement.addEventListener("click", function(event) {
+  
   var ordercode = getInputValue();
 
   xmlhttp.open("GET", url + search + ordercode, true);
@@ -25,23 +26,28 @@ buttonElement.addEventListener("click", function(event) {
 
 
 function getInputValue(){
-  let inputVal = document.getElementById('get_order').value;
+  var inputVal = document.getElementById('get_order').value;
   return inputVal;
 }
 
 function OrderNotFound () {
-  let myH1 = document.createElement('h1');
-   myH1.textContent = "Order not found"
-//   if (order.hasChildNodes()) {
-//     order.removeChild(order.childNodes[0]);
-// } else {
-//     order.appendChild(myH1);
-//   }
-  order.appendChild(myH1);
+  var myH1;
+  if (order.hasChildNodes()) {
+    console.log(order.hasChildNodes(), order.childNodes);
+    order.removeChild(order.childNodes[0]);
+    console.log(order.hasChildNodes(), order.childNodes);
+    myH1 = document.createElement('h1');
+    myH1.textContent = "Order not found";
+} else {
+    console.log(order.hasChildNodes(), order.childNodes);
+    myH1 = document.createElement('h1');
+    myH1.textContent = "Order not found";
+    order.appendChild(myH1);
+  }
+
 }
 
 function showOrder(jsonObj) {
-
   var myArticle = document.createElement('article');
   var myH1 = document.createElement('h1');
 

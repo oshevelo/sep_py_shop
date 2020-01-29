@@ -28,6 +28,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'jet',
     'rest_framework',
     'rest_framework_api_key',
@@ -49,11 +50,13 @@ INSTALLED_APPS = [
     'apps.products',
     'apps.delivery_api',
     'django_filters',
+
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -117,7 +120,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -129,7 +131,6 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
@@ -153,14 +154,18 @@ STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 20,
     'DEFAULT_PERMISSION_CLASSES': [
         #"rest_framework_api_key.permissions.HasAPIKey",
-    ]
+    ],
+
 }
 #rest_framework_api_key=''
 
 MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
 MEDIA_URL = '/media/'
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 from .local import *
 
