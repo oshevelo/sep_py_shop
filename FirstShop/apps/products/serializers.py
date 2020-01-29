@@ -7,7 +7,7 @@ class ProductSerializer(ModelSerializer):
         'id',
         'name', 
         'price',
-        'avaliable_count',
+        'available_count',
         'detail',
         'active',
         'created',

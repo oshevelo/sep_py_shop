@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.urls import include, path
 #from django.contrib.flatpages import views
 urlpatterns = [
-    path(r'^jet/', include('jet.urls', 'jet')),
+    path('jet/', include('jet.urls', 'jet')),
     path('admin/', admin.site.urls),
     path('carts/', include('apps.carts.urls')),
     path('orders/', include('apps.orders.urls')),
@@ -30,3 +30,7 @@ urlpatterns = [
     path('delivery_api/', include('apps.delivery_api.urls')),
     # path('pages/', include('django.contrib.flatpages.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += [
+    path('accounts/', include('django.contrib.auth.urls')),
+]

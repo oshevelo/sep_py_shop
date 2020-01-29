@@ -14,21 +14,26 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         path = options['path']
         try:
-            data = csv.reader(open(path), delimiter=',')
+            data = csv.reader(open(path), delimiter=';')
 
             for row in data:
                 if row[0] != "ISBN":
                     product = Product()
-                    product.product_name = row[1]
-                    product.product_price = random.random() * 100
-                    product.product_avaliable_count = random.randint(1, 100)
-                    product.product_detail = 'ISBN {} '.format(row[0])
-                    product.product_can_be_sold = True
-                    product.product_created_updated = timezone.now()
-                    product.Publication_date = row[3]
-                    product.Number_of_pages = random.randint(100, 1000)
-                    product.product_autor = row[2]
-                    product.publishing_house = row[4]
+                    product.name = row[1]
+                    product.price = random.random() * 100
+                    product.available_count = random.randint(1, 100)
+                    product.attributes = {
+                        'ISBN': row[0],
+                        'book_title': row[1],
+                        'author': row[2],
+                        'year-of-publication': row[3],
+                        'publisher': row[4],
+                        'small_image_URL': row[5],
+                        'medium_image_URL': row[6],
+                        'large_image_URL': row[7]
+                    }
+                    product.created = timezone.now()
+                    product.updated = timezone.now()
                     product.save()
         except Exception as e:
             print(e)
