@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     # 'django.contrib.flatpages',
     'apps',
     'apps.carts',
-    'apps.mailer',
+    #'apps.mailer',
     'apps.catalog',
     'apps.orders',
     'apps.shipments',
