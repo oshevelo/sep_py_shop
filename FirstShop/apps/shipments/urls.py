@@ -7,5 +7,5 @@ app_name = 'shipments'
 
 urlpatterns = [
     path('', views.ShipmentList.as_view(), name='shipment_list'),
-    path('<str:public_id>/', views.ShipmentDetails.as_view(), name='shipment_details'),
+    path('<str:pub_id>/', views.ShipmentDetails.as_view(), name='shipment_details'),
 ]

@@ -17,8 +17,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
-#from django.contrib.flatpages import views
+from django.views.generic.base import TemplateView
+
+
 urlpatterns = [
+    path('', TemplateView.as_view(template_name='index.html'), name='home'),
     path('jet/', include('jet.urls', 'jet')),
     path('admin/', admin.site.urls),
     path('carts/', include('apps.carts.urls')),
@@ -28,7 +31,6 @@ urlpatterns = [
     path('payments/', include('apps.payments.urls')),
     path('products/', include('apps.products.urls')),
     path('delivery_api/', include('apps.delivery_api.urls')),
-    # path('pages/', include('django.contrib.flatpages.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [

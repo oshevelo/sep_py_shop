@@ -1,6 +1,6 @@
 var order = document.getElementById("order");
 var xmlhttp = new XMLHttpRequest();
-var url = "http://127.0.0.1:8000/shipments/";
+var url = "http://0.0.0.0:8000/shipments/";
 var search = '?search=';
 var buttonElement = document.getElementById("button");
 

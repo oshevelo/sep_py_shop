@@ -1,6 +1,6 @@
 var product = document.getElementById('product');
 var xmlhttp = new XMLHttpRequest();
-var host = "http://127.0.0.1:8000/products/";
+var host = "http://0.0.0.0:8000/products/";
 var pagination = "?limit=20&offset=20";
 var url = host + pagination;
 var search = '?search=';

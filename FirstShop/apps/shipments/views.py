@@ -18,5 +18,5 @@ class ShipmentDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = Order.objects.all()
 
     def get_object(self):
-        obj = get_object_or_404(Order, pk=self.kwargs.get('public_id'))
+        obj = get_object_or_404(Order, pk=self.kwargs.get('pub_id'))
         return obj

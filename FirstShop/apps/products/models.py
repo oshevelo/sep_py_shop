@@ -13,7 +13,7 @@ class Product(models.Model):
     active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    attributes = JSONField(default='')
+    attributes = JSONField(default=dict)
 
     def __str__(self):
         return self.name
